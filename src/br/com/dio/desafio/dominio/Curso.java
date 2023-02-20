@@ -11,7 +11,12 @@ public class Curso extends Conteudo{
 
     public Curso() {
     }
-
+    
+    public Curso(String titulo, String descricao, int cargaHoraria) {
+    	this.setTitulo(titulo);
+    	this.setDescricao(descricao);
+    	this.cargaHoraria = cargaHoraria;
+    }
 
     public int getCargaHoraria() {
         return cargaHoraria;
@@ -20,7 +25,12 @@ public class Curso extends Conteudo{
     public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
-
+    
+    @Override
+	public String getCertificado() {
+		return "Certificado de conclusão do curso: " + getTitulo() + " - " + getCargaHoraria() + "hs";
+	}	
+    
     @Override
     public String toString() {
         return "Curso{" +

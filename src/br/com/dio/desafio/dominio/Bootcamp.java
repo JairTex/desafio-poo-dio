@@ -13,9 +13,14 @@ public class Bootcamp {
     private final LocalDate dataFinal = dataInicial.plusDays(45);
     private Set<Dev> devsInscritos = new HashSet<>();
     private Set<Conteudo> conteudos = new LinkedHashSet<>();
+    private int cargaHoraria;
+    
+    public Bootcamp(String nome, String descricao) {
+		this.nome = nome;
+		this.descricao = descricao;
+	}
 
-
-    public String getNome() {
+	public String getNome() {
         return nome;
     }
 
@@ -54,13 +59,29 @@ public class Bootcamp {
     public void setConteudos(Set<Conteudo> conteudos) {
         this.conteudos = conteudos;
     }
+    
+    public int getCargaHoraria() {
+    	cargaHoraria = 0;
+    	getConteudos().stream().forEach(c -> {
+    		if(c instanceof Curso) {cargaHoraria += ((Curso) c).getCargaHoraria();}
+    	});
+		return cargaHoraria;
+	}
 
-    @Override
+	public void setCargaHoraria(int cargaHoraria) {
+		if(cargaHoraria >= 0) {this.cargaHoraria = cargaHoraria;}
+		else {throw new RuntimeException("A carga horária não pode ser menor que 0");}
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bootcamp bootcamp = (Bootcamp) o;
-        return Objects.equals(nome, bootcamp.nome) && Objects.equals(descricao, bootcamp.descricao) && Objects.equals(dataInicial, bootcamp.dataInicial) && Objects.equals(dataFinal, bootcamp.dataFinal) && Objects.equals(devsInscritos, bootcamp.devsInscritos) && Objects.equals(conteudos, bootcamp.conteudos);
+        return Objects.equals(nome, bootcamp.nome) && Objects.equals(descricao, bootcamp.descricao)
+        		&& Objects.equals(dataInicial, bootcamp.dataInicial) && Objects.equals(dataFinal, bootcamp.dataFinal) 
+        		&& Objects.equals(devsInscritos, bootcamp.devsInscritos) && Objects.equals(conteudos, bootcamp.conteudos)
+        		&& Objects.equals(cargaHoraria, bootcamp.cargaHoraria);
     }
 
     @Override

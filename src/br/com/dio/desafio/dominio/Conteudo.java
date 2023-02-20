@@ -1,11 +1,12 @@
 package br.com.dio.desafio.dominio;
 
-public abstract class Conteudo {
+public abstract class Conteudo implements Certificado{
 
     protected static final double XP_PADRAO = 10d;
 
     private String titulo;
     private String descricao;
+    private Professor professor;
 
     public abstract double calcularXp();
 
@@ -24,4 +25,12 @@ public abstract class Conteudo {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
 }

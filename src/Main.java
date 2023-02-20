@@ -1,63 +1,67 @@
+import java.time.LocalDateTime;
+
+import br.com.dio.desafio.dominio.Aluno;
 import br.com.dio.desafio.dominio.Bootcamp;
 import br.com.dio.desafio.dominio.Curso;
-import br.com.dio.desafio.dominio.Dev;
 import br.com.dio.desafio.dominio.Mentoria;
-
-import java.time.LocalDate;
-
+import br.com.dio.desafio.dominio.Professor;
+ 
 public class Main {
     public static void main(String[] args) {
-        Curso curso1 = new Curso();
-        curso1.setTitulo("curso java");
-        curso1.setDescricao("descrição curso java");
-        curso1.setCargaHoraria(8);
+    	//Criando professores
+    	Professor prof1 = new Professor("Maria", "maria@email.com");
+    	prof1.getStack().add("Java");
+    	prof1.getStack().add("Javascript");
+    	
+    	Professor prof2 = new Professor("joão", "joao@email.com");
+    	prof2.getStack().add("Javascript");
+    	prof2.getStack().add("HTML");
+    	prof2.getStack().add("CSS");
+    	
+    	//Criando cursos
+        Curso curso1 = new Curso("Os principios de POO com Java", "Aprenda a programar com Java e POO.", 40);
+        curso1.setProfessor(prof1);
 
-        Curso curso2 = new Curso();
-        curso2.setTitulo("curso js");
-        curso2.setDescricao("descrição curso js");
-        curso2.setCargaHoraria(4);
-
-        Mentoria mentoria = new Mentoria();
-        mentoria.setTitulo("mentoria de java");
-        mentoria.setDescricao("descrição mentoria java");
-        mentoria.setData(LocalDate.now());
-
-        /*System.out.println(curso1);
-        System.out.println(curso2);
-        System.out.println(mentoria);*/
-
-        Bootcamp bootcamp = new Bootcamp();
-        bootcamp.setNome("Bootcamp Java Developer");
-        bootcamp.setDescricao("Descrição Bootcamp Java Developer");
+        Curso curso2 = new Curso("Javascript para iniciante", "Aprenda a programar em Javascript.", 24);
+        curso2.setProfessor(prof2);
+        
+        Curso curso3 = new Curso("HTML e CSS básico", "Aprenda HTML e CSS básico.", 16);
+        curso3.setProfessor(prof2);
+        
+        //Criando Mentorias
+        LocalDateTime horario = LocalDateTime.of(2023, 02, 23, 19, 0);
+        
+        Mentoria mentoria = new Mentoria("Boas práticas com Java", "O que o mercado busca de um dev Java?", horario);
+        mentoria.setProfessor(prof1);
+        
+        //Criando bootcamp
+        Bootcamp bootcamp = new Bootcamp("Bootcamp Java Developer", "Comece a desenvolver aplicações com stack Java.");
         bootcamp.getConteudos().add(curso1);
         bootcamp.getConteudos().add(curso2);
+        bootcamp.getConteudos().add(curso3);
         bootcamp.getConteudos().add(mentoria);
-
-        Dev devCamila = new Dev();
-        devCamila.setNome("Camila");
+        
+        //Criando alunos
+        Aluno devCamila = new Aluno("Camila", "camila@email.com");
+        devCamila.setPro(true);
         devCamila.inscreverBootcamp(bootcamp);
-        System.out.println("Conteúdos Inscritos Camila:" + devCamila.getConteudosInscritos());
         devCamila.progredir();
         devCamila.progredir();
-        System.out.println("-");
-        System.out.println("Conteúdos Inscritos Camila:" + devCamila.getConteudosInscritos());
-        System.out.println("Conteúdos Concluídos Camila:" + devCamila.getConteudosConcluidos());
+        devCamila.progredir();
+        devCamila.progredir();
+        System.out.println("Certificados de Camila:" + devCamila.getCertificados());
         System.out.println("XP:" + devCamila.calcularTotalXp());
 
         System.out.println("-------");
 
-        Dev devJoao = new Dev();
-        devJoao.setNome("Joao");
+        Aluno devJoao = new Aluno("Joao", "joaoAluno@email.com");
         devJoao.inscreverBootcamp(bootcamp);
-        System.out.println("Conteúdos Inscritos João:" + devJoao.getConteudosInscritos());
         devJoao.progredir();
         devJoao.progredir();
         devJoao.progredir();
-        System.out.println("-");
-        System.out.println("Conteúdos Inscritos João:" + devJoao.getConteudosInscritos());
-        System.out.println("Conteúdos Concluidos João:" + devJoao.getConteudosConcluidos());
+        System.out.println("Certificados de João:" + devJoao.getCertificados());
         System.out.println("XP:" + devJoao.calcularTotalXp());
-
+        
     }
 
 }

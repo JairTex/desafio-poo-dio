@@ -1,10 +1,10 @@
 package br.com.dio.desafio.dominio;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Mentoria extends Conteudo{
 
-    private LocalDate data;
+    private LocalDateTime horario;
 
     @Override
     public double calcularXp() {
@@ -13,21 +13,32 @@ public class Mentoria extends Conteudo{
 
     public Mentoria() {
     }
-
-    public LocalDate getData() {
-        return data;
+    
+    public Mentoria(String titulo, String descricao, LocalDateTime horario) {
+    	this.setTitulo(titulo);
+    	this.setDescricao(descricao);
+    	this.horario = horario;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public LocalDateTime getHorario() {
+        return horario;
     }
 
+    public void setData(LocalDateTime horario) {
+        this.horario = horario;
+    }
+    
+    @Override
+	public String getCertificado() {
+		return "Certificado de participação da mentoria: " + getTitulo();
+	}
+    
     @Override
     public String toString() {
         return "Mentoria{" +
                 "titulo='" + getTitulo() + '\'' +
                 ", descricao='" + getDescricao() + '\'' +
-                ", data=" + data +
+                ", horario=" + horario +
                 '}';
     }
 }

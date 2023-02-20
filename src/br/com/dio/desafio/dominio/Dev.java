@@ -2,8 +2,9 @@ package br.com.dio.desafio.dominio;
 
 import java.util.*;
 
-public class Dev {
+public abstract class Dev {
     private String nome;
+    private String email;
     private Set<Conteudo> conteudosInscritos = new LinkedHashSet<>();
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
 
@@ -23,21 +24,22 @@ public class Dev {
     }
 
     public double calcularTotalXp() {
-        Iterator<Conteudo> iterator = this.conteudosConcluidos.iterator();
-        double soma = 0;
-        while(iterator.hasNext()){
-            double next = iterator.next().calcularXp();
-            soma += next;
-        }
-        return soma;
-
-        /*return this.conteudosConcluidos
+        return this.conteudosConcluidos
                 .stream()
                 .mapToDouble(Conteudo::calcularXp)
-                .sum();*/
+                .sum();
     }
 
-
+    public Set<String> getCertificados(){
+    	Set<String> certificados = new LinkedHashSet<>();
+    	this.conteudosConcluidos
+		    .stream()
+		    .forEach(c -> {
+		    	certificados.add(c.getCertificado());
+		    	});
+    	return certificados;
+    } 
+    
     public String getNome() {
         return nome;
     }
@@ -45,8 +47,16 @@ public class Dev {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+    public String getEmail() {
+		return email;
+	}
 
-    public Set<Conteudo> getConteudosInscritos() {
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Set<Conteudo> getConteudosInscritos() {
         return conteudosInscritos;
     }
 
